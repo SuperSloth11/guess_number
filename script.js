@@ -1,8 +1,5 @@
 'use strict';
 
-let score = 20;
-let highScore = 0;
-
 const generateNumber = function () {
   let secretNumber = Math.round(Math.random() * 100);
   console.log(secretNumber);
@@ -21,7 +18,9 @@ const updateScore = function (score) {
   document.querySelector('.score').textContent = score;
 }
 let secretNumber = generateNumber();
-  
+let score = 20;
+let highScore = 0;  
+
 // Event Listener for Game
 document.querySelector('.check').addEventListener('click', function () {
   let guess = Number(document.querySelector('.guess').value);
@@ -43,7 +42,7 @@ document.querySelector('.check').addEventListener('click', function () {
   }
     
   // For non-winning guess
-  else if (guess !== secretNumber) {
+  else if (guess !== secretNumber && score >= 1) {
     displayMessage(guess > secretNumber ? "Too High!" : "Too Low!")
     score--;
     updateScore(score);
@@ -59,7 +58,8 @@ document.querySelector('.check').addEventListener('click', function () {
 // Reset Button
 document.querySelector(".again").addEventListener("click", function () {
   secretNumber = generateNumber();
-  updateScore(20);
+  score = 20;
+  updateScore(score);
   displayMessage("Start Guessing...");
   changeBackground("#222");
   revealNumber("?");
